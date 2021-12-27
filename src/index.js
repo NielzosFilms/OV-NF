@@ -6,6 +6,9 @@ const ov = require("./ov");
 
 const models = require("../models");
 
+const userRoutes = require("./UserRoutes");
+const editDashboardRoutes = require("./EditDashboardRoutes");
+
 const oneDay = 1000 * 60 * 60 * 24;
 
 const app = express();
@@ -24,6 +27,9 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
+app.use("/", userRoutes);
+app.use("/", editDashboardRoutes);
+
 // Set routes
 app.get("/", async (req, res) => {
 	const dashboardEntries = await models.DashboardEntry.findAll();
@@ -31,20 +37,23 @@ app.get("/", async (req, res) => {
 		dashboardEntries.map(async (entry) => {
 			return {
 				walkingTime: entry.walkingTime,
-				departures: await ov.getDepartures(entry.busstopId),
+				departures: await ov.getDepartures(entry.stationId),
 			};
 		})
 	);
 	res.render("index", {
-		stops,
+		stops: stops.filter(
+			(stop) => !Object.keys(stop.departures).includes("exception")
+		),
 		getTimeDiff: ov.getTimeDiff,
 		lineFilter: req.query.line,
+		user: req.session.user,
 	});
 });
 
 // 404 route
 app.use((req, res) => {
-	res.status(404).render("404");
+	res.status(404).render("404", {user: req.session.user});
 });
 
 // Start server

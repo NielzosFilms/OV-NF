@@ -1,7 +1,9 @@
 "use strict";
 const {Model} = require("sequelize");
+const passwordHash = require("password-hash");
+
 module.exports = (sequelize, DataTypes) => {
-	class DashboardEntry extends Model {
+	class User extends Model {
 		/**
 		 * Helper method for defining associations.
 		 * This method is not a part of Sequelize lifecycle.
@@ -11,35 +13,33 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 		}
 	}
-	DashboardEntry.init(
+	User.init(
 		{
-			stationId: {
+			username: {
 				type: DataTypes.STRING,
 				allowNull: false,
 				unique: true,
 				validate: {
 					notEmpty: true,
+					unique: {
+						args: true,
+						msg: "Username already exists",
+					},
 				},
 			},
-			order: {
-				type: DataTypes.INTEGER,
+			password: {
+				type: DataTypes.STRING,
 				allowNull: false,
 				validate: {
 					notEmpty: true,
 				},
 			},
-			walkingTime: {
-				type: DataTypes.INTEGER,
-				allowNull: true,
-			},
 		},
 		{
 			sequelize,
-			modelName: "DashboardEntry",
-			defaultScope: {
-				order: [["order", "ASC"]],
-			},
+			paranoid: true,
+			modelName: "User",
 		}
 	);
-	return DashboardEntry;
+	return User;
 };

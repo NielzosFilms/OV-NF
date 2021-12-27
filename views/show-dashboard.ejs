@@ -1,0 +1,71 @@
+<html lang="en">
+	<head>
+		<%- include('partials/head') %>
+	</head>
+	<body>
+		<header><%- include('partials/header'); %></header>
+		<main class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Show dashboard entries</h1>
+					<hr />
+
+					<div class="row">
+						<div class="col-md-12">
+							<h2>Dashboard entries</h2>
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>StationId</th>
+										<th>WalkingTime</th>
+										<th>Updated</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% dashboardEntries.forEach((entry) => { %>
+									<tr>
+										<td><%- entry.stationId %></td>
+										<td><%- entry.walkingTime %></td>
+										<td>
+											<%-
+											formatDateString(entry.updatedAt) %>
+										</td>
+										<td>
+											<a
+												href="/dashboard/<%- entry.id %>/move/up"
+												class="btn btn-secondary"
+												>🔺</a
+											>
+											<a
+												href="/dashboard/<%- entry.id %>/move/down"
+												class="btn btn-secondary"
+												>🔻</a
+											>
+											<a
+												href="/dashboard/<%- entry.id %>/edit"
+												class="btn btn-primary"
+												>Edit</a
+											>
+											<a
+												href="/dashboard/
+												<%- entry.id %>/delete"
+												class="btn btn-danger"
+												>Delete</a
+											>
+										</td>
+									</tr>
+									<% }); %>
+								</tbody>
+							</table>
+
+							<a href="/dashboard/new" class="btn btn-primary"
+								>New dashboard entry</a
+							>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
+</html>

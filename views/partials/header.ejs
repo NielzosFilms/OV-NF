@@ -7,8 +7,19 @@
 					>Dashboard</a
 				>
 			</li>
+			<% if(typeof user !== "undefined") { %>
 			<li class="nav-item">
-				<a class="nav-link" href="#">About</a>
+				<a class="nav-link" href="/dashboard">Edit dashboard</a>
+			</li>
+			<% } %>
+		</ul>
+		<ul class="navbar-nav float-end mb-2 mb-lg-0">
+			<li class="nav-item">
+				<% if(typeof user !== "undefined") { %>
+				<a class="nav-link" href="/logout">Log uit</a>
+				<% } else { %>
+				<a class="nav-link" href="/login">Login</a>
+				<% } %>
 			</li>
 		</ul>
 	</div>
