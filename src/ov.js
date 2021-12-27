@@ -33,19 +33,29 @@ function getTimeDiff(time) {
 }
 
 async function getDepartures(stopId) {
-	const response = await fetch(
-		`${options.host}/locations/${stopId}/departure-times?lang=${options.lang}`
-	);
-	const json = await response.json();
-	return json;
+	try {
+		const response = await fetch(
+			`${options.host}/locations/${stopId}/departure-times?lang=${options.lang}`
+		);
+		const json = await response.json();
+		return json;
+	} catch (e) {
+		console.error(e);
+	}
+	return [];
 }
 
 async function getStops(query) {
-	const response = await fetch(
-		`${options.host}/locations?q=${query}&lang=${options.lang}`
-	);
-	const json = await response.json();
-	return json;
+	try {
+		const response = await fetch(
+			`${options.host}/locations?q=${query}&lang=${options.lang}`
+		);
+		const json = await response.json();
+		return json;
+	} catch (e) {
+		console.error(e);
+	}
+	return [];
 }
 
 module.exports = {

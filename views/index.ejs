@@ -1,7 +1,7 @@
 <html lang="en">
 	<head>
 		<%- include('partials/head') %>
-		<meta http-equiv="refresh" content="60" />
+		<meta http-equiv="refresh" content="30" />
 		<!-- Refresh every 60 seconds -->
 	</head>
 	<body>
@@ -10,10 +10,14 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h1>OV-NF Dashboard</h1>
+					<% if(lineFilter) { %>
+					<p>Filter op lijn: <%= lineFilter %></p>
+					<a href="/">Reset</a>
+					<% } %>
 					<hr />
 					<div class="row">
 						<% stops.forEach((stop) => { %>
-						<div class="col-md-6">
+						<div class="col-lg-6">
 							<h2>
 								<%- stop.location.place.name %> - <%-
 								stop.location.name %>
@@ -26,6 +30,8 @@
 							<% } %>
 							<hr />
 
+							<% stop.tabs.forEach((tab) => { %>
+							<h4><%- tab.name %></h4>
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -36,11 +42,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<%
-									stop.tabs[0].departures.forEach(function(departure)
-									{ %>
+									<% tab.departures.filter((dep) =>
+									!lineFilter || dep.service ===
+									lineFilter).forEach(function(departure) { %>
 									<tr>
-										<td><%- departure.service %></td>
+										<td>
+											<a
+												href="?line=<%- departure.service %>"
+												><%- departure.service %></a
+											>
+										</td>
 										<td>
 											<%- departure.destinationName %>
 										</td>
@@ -48,7 +59,19 @@
 											<%- departure.time %> (<%-
 											getTimeDiff(departure.time) %>)
 										</td>
-										<td>
+										<td
+											class="
+												<%-
+												departure.realtimeState
+												===
+												'late'
+												?
+												'text-danger'
+												:
+												''
+												%>
+											"
+										>
 											<%- departure.realtimeState %> <%-
 											departure.realtimeText %>
 										</td>
@@ -56,6 +79,7 @@
 									<% }); %>
 								</tbody>
 							</table>
+							<% }); %>
 						</div>
 						<% }); %>
 					</div>

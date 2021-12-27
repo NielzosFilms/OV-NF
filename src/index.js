@@ -30,11 +30,13 @@ app.get("/", async (req, res) => {
 		await ov.getDepartures("mijdrecht/bushalte-rondweg"),
 		await ov.getDepartures("mijdrecht/bushalte-bozenhoven"),
 		await ov.getDepartures("wilnis/bushalte-driehuis-kerk"),
+		await ov.getDepartures("station-amsterdam-bijlmer-arena"),
 	];
 	res.render("index", {
 		stops,
 		extraInfo: ov.extraInfo,
 		getTimeDiff: ov.getTimeDiff,
+		lineFilter: req.query.line,
 	});
 });
 
