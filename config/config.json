@@ -2,22 +2,23 @@
 	"development": {
 		"username": "root",
 		"password": null,
-		"database": "express_template",
+		"database": "ov_nf",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
 	"test": {
 		"username": "root",
 		"password": null,
-		"database": "express_template",
+		"database": "ov_nf",
 		"host": "127.0.0.1",
 		"dialect": "mysql"
 	},
 	"production": {
 		"username": "root",
 		"password": null,
-		"database": "express_template",
+		"database": "ov_nf",
 		"host": "127.0.0.1",
-		"dialect": "mysql"
+		"dialect": "mysql",
+		"logging": false
 	}
 }
