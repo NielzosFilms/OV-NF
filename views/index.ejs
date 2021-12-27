@@ -1,9 +1,9 @@
 <html lang="en">
 	<head>
 		<%- include('partials/head') %>
-		<meta http-equiv="refresh" content="30" />
-		<!-- Refresh every 60 seconds -->
+		<script src="js/reloadEveryMin.js"></script>
 	</head>
+
 	<body>
 		<header><%- include('partials/header'); %></header>
 		<main class="container">
@@ -19,18 +19,18 @@
 						<% stops.forEach((stop) => { %>
 						<div class="col-lg-6">
 							<h2>
-								<%- stop.location.place.name %> - <%-
-								stop.location.name %>
+								<%- stop.departures.location.place.name %> - <%-
+								stop.departures.location.name %>
 							</h2>
-							<% if(extraInfo[stop.location.id]) { %>
+							<% if(stop.walkingTime) { %>
 							<p>
-								Loop afstand (Google): <%-
-								extraInfo[stop.location.id].walkingTime %> min
+								Loop af. (Google Mol. 80): <%- stop.walkingTime
+								%> min
 							</p>
 							<% } %>
 							<hr />
 
-							<% stop.tabs.forEach((tab) => { %>
+							<% stop.departures.tabs.forEach((tab) => { %>
 							<h4><%- tab.name %></h4>
 							<table class="table table-striped">
 								<thead>

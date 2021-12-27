@@ -26,15 +26,17 @@ app.use(express.static("public"));
 
 // Set routes
 app.get("/", async (req, res) => {
-	const stops = [
-		await ov.getDepartures("mijdrecht/bushalte-rondweg"),
-		await ov.getDepartures("mijdrecht/bushalte-bozenhoven"),
-		await ov.getDepartures("wilnis/bushalte-driehuis-kerk"),
-		await ov.getDepartures("station-amsterdam-bijlmer-arena"),
-	];
+	const dashboardEntries = await models.DashboardEntry.findAll();
+	const stops = await Promise.all(
+		dashboardEntries.map(async (entry) => {
+			return {
+				walkingTime: entry.walkingTime,
+				departures: await ov.getDepartures(entry.busstopId),
+			};
+		})
+	);
 	res.render("index", {
 		stops,
-		extraInfo: ov.extraInfo,
 		getTimeDiff: ov.getTimeDiff,
 		lineFilter: req.query.line,
 	});
