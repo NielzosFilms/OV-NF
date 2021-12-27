@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node ./src/index.js",
 		"dev": "nodemon --watch ./models --watch ./src --watch ./views --watch ./public ./src/index.js",
-		"ov": "node ./src/ov.js"
+		"ov": "nodemon ./src/ov.js"
 	},
 	"author": "",
 	"license": "ISC",

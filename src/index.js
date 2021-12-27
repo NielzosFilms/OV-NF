@@ -2,6 +2,8 @@ const express = require("express");
 const session = require("express-session");
 const {v4: uuidv4} = require("uuid");
 
+const ov = require("./ov");
+
 const models = require("../models");
 
 const oneDay = 1000 * 60 * 60 * 24;
@@ -23,8 +25,17 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // Set routes
-app.get("/", (req, res) => {
-	res.render("index");
+app.get("/", async (req, res) => {
+	const stops = [
+		await ov.getDepartures("mijdrecht/bushalte-rondweg"),
+		await ov.getDepartures("mijdrecht/bushalte-bozenhoven"),
+		await ov.getDepartures("wilnis/bushalte-driehuis-kerk"),
+	];
+	res.render("index", {
+		stops,
+		extraInfo: ov.extraInfo,
+		getTimeDiff: ov.getTimeDiff,
+	});
 });
 
 // 404 route

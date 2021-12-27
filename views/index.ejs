@@ -1,23 +1,64 @@
 <html lang="en">
 	<head>
 		<%- include('partials/head') %>
+		<meta http-equiv="refresh" content="60" />
+		<!-- Refresh every 60 seconds -->
 	</head>
 	<body>
 		<header><%- include('partials/header'); %></header>
 		<main class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Express Template</h1>
+					<h1>OV-NF Dashboard</h1>
 					<hr />
-					<h2>About</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing
-						elit. Aperiam, doloremque, eaque, eius, fugiat, illum,
-						ipsa, itaque, laborum, magni, molestias, nam, natus,
-						neque, nihil, officia, quaerat, quas, quisquam, quod,
-						reiciendis, reprehenderit, saepe, sunt, tempora,
-						voluptas.
-					</p>
+					<div class="row">
+						<% stops.forEach((stop) => { %>
+						<div class="col-md-6">
+							<h2>
+								<%- stop.location.place.name %> - <%-
+								stop.location.name %>
+							</h2>
+							<% if(extraInfo[stop.location.id]) { %>
+							<p>
+								Loop afstand (Google): <%-
+								extraInfo[stop.location.id].walkingTime %> min
+							</p>
+							<% } %>
+							<hr />
+
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Lijn</th>
+										<th>Bestemming</th>
+										<th>Vertrek tijd</th>
+										<th>Realtime info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<%
+									stop.tabs[0].departures.forEach(function(departure)
+									{ %>
+									<tr>
+										<td><%- departure.service %></td>
+										<td>
+											<%- departure.destinationName %>
+										</td>
+										<td>
+											<%- departure.time %> (<%-
+											getTimeDiff(departure.time) %>)
+										</td>
+										<td>
+											<%- departure.realtimeState %> <%-
+											departure.realtimeText %>
+										</td>
+									</tr>
+									<% }); %>
+								</tbody>
+							</table>
+						</div>
+						<% }); %>
+					</div>
 				</div>
 			</div>
 		</main>
