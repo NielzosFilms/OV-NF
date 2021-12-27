@@ -1,27 +1,35 @@
 {
-	"name": "ov-nf",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "node ./src/index.js",
-		"dev": "nodemon --watch ./models --watch ./src --watch ./views --watch ./public ./src/index.js",
-		"ov": "nodemon ./src/ov.js"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"ejs": "^3.1.6",
-		"express": "^4.17.1",
-		"express-session": "^1.17.2",
-		"mysql2": "^2.3.2",
-		"node-fetch": "2",
-		"password-hash": "^1.2.2",
-		"sequelize": "^6.9.0",
-		"uuid": "^8.3.2"
-	},
-	"devDependencies": {
-		"nodemon": "^2.0.14",
-		"sequelize-cli": "^6.3.0"
-	}
+  "name": "ov-nf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "dev": "nodemon --watch ./models --watch ./src --watch ./views --watch ./public ./src/index.js",
+    "ov": "nodemon ./src/ov.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.2",
+    "node-fetch": "2",
+    "password-hash": "^1.2.2",
+    "sequelize": "^6.9.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "sequelize-cli": "^6.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NielzosFilms/OV-NF.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NielzosFilms/OV-NF/issues"
+  },
+  "homepage": "https://github.com/NielzosFilms/OV-NF#readme"
 }
